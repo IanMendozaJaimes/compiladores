@@ -1,1 +1,22 @@
 \section{Introducción}
+
+Los autómatas finitos pueden ser definidos formalmente como una tupla $(Q, \Sigma, \delta, F)$, de donde:
+
+\begin{itemize}
+	\item $Q$ es un conjunto finito de estados.
+	\item $\Sigma$ es un alfabeto.
+	\item $\delta$ es su función de transición.
+	\item $F$ es un conjunto finito de estados finales tales que $F \subseteq Q$.
+\end{itemize}
+
+Tienen multiples aplicaciones dentro de la teoría de la computación tales como: el análisis de textos, software para el diseño de circuitos electrónicos, verificación de sistemas de todo tipo con un número finito de estados, compiladores, etc \cite{automatas}. Para nuestros fines, nos enfocaremos brevemente en esta última aplicación. \\
+
+La primera etapa de un compilador es el llamado \textit{analizador léxico}, el cual se encarga de descomponer el texto ingresado en unidades lógicas que esten dentro del lenguaje que modele el compilador. Los automatas son el corazón de esta etapa de compilación gracias a su capacidad de modelar lenguajes formales. \\
+
+En esta práctica, se realizará la implementación de las clases AFD y AFN en algún lenguaje de programación orientado a objetos. Teniendo como finalidad acentar las bases para la creación de un analizador léxcio.
+
+
+
+
+
+

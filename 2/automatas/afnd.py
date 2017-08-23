@@ -1,60 +1,4 @@
-\section{Desarrollo}
-
-\subsection{Descripción de la problema}
-
-Se deben implementar las clases Afn y Afd. Deben de permitir crear cualquier tipo de autómata y evaluar alguna cadena ingresada por el usuario.
-
-\subsection{Código}
-
-main.py
-\lstset{language=Python, breaklines=true, basicstyle=\footnotesize}
-\begin{lstlisting}[frame=single]
-from afnd import Afn, Afd
-
-class Main(object):
-
-    def iniciar(self):
-        automata = Afn()
-
-        automata.anadirEstado()
-        automata.anadirEstado()
-        automata.anadirEstado()
-        automata.anadirEstado()
-        automata.anadirEstado()
-        automata.anadirEstado()
-
-        automata.anadirFinal(6)
-
-        automata.anadirTransicion(1, 2, ['1'])
-        automata.anadirTransicion(2, 1, ['1'])
-        automata.anadirTransicion(2, 3, ['0'])
-        automata.anadirTransicion(3, 2, ['0'])
-        automata.anadirTransicion(3, 4, ['1'])
-        automata.anadirTransicion(4, 3, ['1'])
-        automata.anadirTransicion(4, 1, ['0'])
-        automata.anadirTransicion(1, 4, ['0'])
-        automata.anadirTransicion(4, 5)
-        automata.anadirTransicion(5, 6, ['j'])
-
-        for x in automata.crearTablaEstados():
-            print(x)
-
-        automata.dibujarAutomata()
-        print('====')
-        while True:
-            print(automata.evaluarCadena(input("Ingresa una cadena: ")))
-            if input("Quieres ingresar otra?: s/n    ") != 's':
-                break
-
-
-main = Main()
-main.iniciar()
-\end{lstlisting}
-
-afnd.py
-\lstset{language=Python, breaklines=true, basicstyle=\footnotesize}
-\begin{lstlisting}[frame=single]
-from estado import Estado, Transicion
+from automatas.estado import Estado, Transicion
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -64,19 +8,19 @@ class Afn(object):
         self.estados = []
         self.tablaEstados = []
         self.contadorEstados = 0
-        self.inicial = False
+        self.inicial = 0
         self.err = 0
 
     def anadirEstado(self):
         self.contadorEstados += 1
 
-        if not self.inicial:
+        if self.inicial == 0:
             self.estados.append(Estado(self.contadorEstados, True))
             self.inicial = self.contadorEstados
         else:
             self.estados.append(Estado(self.contadorEstados, False))
 
-        return 0
+        return self.contadorEstados
 
     def anadirTransicion(self, estado, siguiente, condiciones=[]):
         if estado > self.contadorEstados or estado < 1:
@@ -101,10 +45,23 @@ class Afn(object):
         self.estados[estado-1].volverFinal()
         return 0
 
+    def cambiarInicial(self, estado):
+        if estado > self.contadorEstados or estado < 1:
+            return -1
+
+        self.estados[self.inicial-1].volverInicial()
+        self.estados[estado-1].volverInicial()
+        self.inicial = estado
+        return 0
+
     def dibujarAutomata(self):
         G = nx.DiGraph()
         etiqueta = {}
         for estado in self.estados:
+            if estado.inicial:
+                print('SOY EL INICIAL:', estado.nombre)
+            if estado.final:
+                print('SOY EL FINAL:', estado.nombre)
             for transicion in estado.transiciones:
                 G.add_edge(estado.nombre, transicion.siguiente)
                 etiqueta[estado.nombre, transicion.siguiente] = transicion.condiciones
@@ -247,40 +204,3 @@ class Afd(Afn):
             self.estados[estado-1].anadirTransicion(transicion)
 
         return 0
-\end{lstlisting}
-
-estado.py
-\lstset{language=Python, breaklines=true, basicstyle=\footnotesize}
-\begin{lstlisting}[frame=single]
-class Transicion(object):
-    def __init__(self, siguiente, condiciones=[]):
-        self.condiciones = condiciones
-        self.siguiente = siguiente
-
-
-class Estado(object):
-    def __init__(self, nombre, inicial=False, final=False):
-        self.nombre = nombre
-        self.inicial = inicial
-        self.final = final
-        self.transiciones = []
-
-    def anadirTransicion(self, transicion):
-        self.transiciones.append(transicion)
-        return 0;
-
-    def obtenerNumEpsilons(self):
-        cont = []
-        for t in self.transiciones:
-            if len(t.condiciones) == 0:
-                cont.append(t.siguiente)
-        return cont
-
-    def volverFinal(self):
-        self.final = not self.final
-        return 0;
-
-    def volverInicial(self):
-        self.inicial = not self.inicial
-        return 0;
-\end{lstlisting}
