@@ -10,6 +10,9 @@ class Main(object):
         print(analizador.lista)
 
         analizador.automata.crearTablaEstados()
+        for x in analizador.automata.tablaEstados:
+            print(x)
+
         while True:
             cadena = input('Ingresa una cadena a evaluar:')
             print(analizador.automata.evaluarCadena(cadena))

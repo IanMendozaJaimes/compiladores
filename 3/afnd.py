@@ -1,4 +1,4 @@
-from automatas.estado import Estado, Transicion
+from estado import Estado, Transicion
 import networkx as nx
 import matplotlib.pyplot as plt
 
@@ -123,6 +123,7 @@ class Afn(object):
         self.tablaEstados = aux
         return self.tablaEstados
 
+
     def validarCadena(self, cadena):
         if type(cadena) is not str:
             return False
@@ -132,6 +133,7 @@ class Afn(object):
             return False
 
         return True
+
 
     def evaluarEpsilon(self, estados, caracter):
         temp = []
@@ -143,6 +145,7 @@ class Afn(object):
                     temp += self.evaluarEpsilon(x[1], caracter)
         return temp
 
+
     def validacionFinal(self, estados):
         temp = []
         for e in estados:
@@ -152,6 +155,7 @@ class Afn(object):
             else:
                 temp += self.validacionFinal(epsilons)
         return temp
+
 
     def evaluarCadena(self, cadena):
         if not self.validarCadena(cadena):

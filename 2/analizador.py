@@ -17,7 +17,6 @@ class Analizador(object):
 
         self.convertirPostorden(cadena)
         self.crearAutomata()
-        self.automata.dibujarAutomata()
 
 
     def crearAutomata(self):
@@ -67,6 +66,13 @@ class Analizador(object):
                 manejador_nodos = Manejador_nodos()
                 manejador_nodos.inicio = -2
                 manejador_nodos.final = -2
+                self.pila.append(manejador_nodos)
+
+            elif elemento == 'E':
+                manejador_nodos = Manejador_nodos()
+                manejador_nodos.inicio = self.automata.anadirEstado()
+                manejador_nodos.final = self.automata.anadirEstado()
+                self.automata.anadirTransicion(manejador_nodos.inicio, manejador_nodos.final)
                 self.pila.append(manejador_nodos)
 
             else:
