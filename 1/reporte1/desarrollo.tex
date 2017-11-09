@@ -64,19 +64,20 @@ class Afn(object):
         self.estados = []
         self.tablaEstados = []
         self.contadorEstados = 0
-        self.inicial = False
+        self.inicial = 0
+        self.historialCondiciones = set()
         self.err = 0
 
     def anadirEstado(self):
         self.contadorEstados += 1
 
-        if not self.inicial:
+        if self.inicial == 0:
             self.estados.append(Estado(self.contadorEstados, True))
             self.inicial = self.contadorEstados
         else:
             self.estados.append(Estado(self.contadorEstados, False))
 
-        return 0
+        return self.contadorEstados
 
     def anadirTransicion(self, estado, siguiente, condiciones=[]):
         if estado > self.contadorEstados or estado < 1:
@@ -85,9 +86,14 @@ class Afn(object):
         if siguiente > self.contadorEstados or estado < 1:
             return -1
 
+        for x in condiciones:
+            self.historialCondiciones.add(x)
+
         if len(condiciones) > 0:
             transicion = Transicion(siguiente, condiciones)
             self.estados[estado-1].anadirTransicion(transicion)
+            for condicion in condiciones:
+                self.historialCondiciones.add(condicion)
         else:
             transicion = Transicion(siguiente)
             self.estados[estado-1].anadirTransicion(transicion)
@@ -101,10 +107,23 @@ class Afn(object):
         self.estados[estado-1].volverFinal()
         return 0
 
+    def cambiarInicial(self, estado):
+        if estado > self.contadorEstados or estado < 1:
+            return -1
+
+        self.estados[self.inicial-1].volverInicial()
+        self.estados[estado-1].volverInicial()
+        self.inicial = estado
+        return 0
+
     def dibujarAutomata(self):
         G = nx.DiGraph()
         etiqueta = {}
         for estado in self.estados:
+            if estado.inicial:
+                print('SOY EL INICIAL:', estado.nombre)
+            if estado.final:
+                print('SOY EL FINAL:', estado.nombre)
             for transicion in estado.transiciones:
                 G.add_edge(estado.nombre, transicion.siguiente)
                 etiqueta[estado.nombre, transicion.siguiente] = transicion.condiciones
@@ -166,9 +185,8 @@ class Afn(object):
         self.tablaEstados = aux
         return self.tablaEstados
 
+
     def validarCadena(self, cadena):
-        if len(cadena) == 0:
-            return False
         if type(cadena) is not str:
             return False
         if len(self.tablaEstados) == 0:
@@ -177,6 +195,7 @@ class Afn(object):
             return False
 
         return True
+
 
     def evaluarEpsilon(self, estados, caracter):
         temp = []
@@ -188,6 +207,7 @@ class Afn(object):
                     temp += self.evaluarEpsilon(x[1], caracter)
         return temp
 
+
     def validacionFinal(self, estados):
         temp = []
         for e in estados:
@@ -198,9 +218,13 @@ class Afn(object):
                 temp += self.validacionFinal(epsilons)
         return temp
 
+
     def evaluarCadena(self, cadena):
         if not self.validarCadena(cadena):
             return False
+
+        if len(cadena) == 0:
+            cadena = ' '
 
         estds = [self.inicial]
         temp = []
@@ -216,9 +240,7 @@ class Afn(object):
                         temp += self.evaluarEpsilon(x[1], caracter)
             estds = temp
 
-        print(estds)
         estds = self.validacionFinal(estds)
-        print(estds)
 
         for e in estds:
             if self.estados[e-1].final:

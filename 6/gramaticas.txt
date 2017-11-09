@@ -1,0 +1,6 @@
+S A C
+S -> abAC
+A -> aC
+A -> b
+C -> caA
+C -> \E

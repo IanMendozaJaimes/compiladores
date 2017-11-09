@@ -1,0 +1,33 @@
+//un ejemplo de como me imagino el lenguaje, este es el himno a la alegria en piano
+
+/*
+
+    hola como estas
+
+*/
+
+tempo = 115 //una variable tipo Entera
+compas = 4 //el compas tambien es de tipo entero y siempre se asume que sera n/4
+instru = piano //una variable de tipo Instrumento
+mano_derecha = [tempo, compas, instru] //arreglo con las caracteristicas de la mano derecha
+mano_izquierda = [tempo, compas, instru]
+
+notas = 2fa, sol, la*2, sol, fa, mi, re*2, mi, fa
+notas2 = fa, re, mi, 1[fa, sol]
+notas3 = 4do, 4re
+
+funcion himno_alegria(){
+
+    tocar(mano_derecha, 0){
+        notas, 2fa, 2mi, notas, 2(do, mi), 2re, 2mi, notas2*2,
+        fa, mi, re, mi, 2la, notas, 2(do, mi), 2re
+    }
+
+    tocar(mano_izquierda, 0){notas3}
+    para(i = 0, i < 5, i++){
+        tocar(mano_izquierda){notas3} //si no tiene tiempo entonces se pone secuencialmente con la primera tocar que encuentre que si lo tenga
+    }
+
+}
+
+himno_alegria()

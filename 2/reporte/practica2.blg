@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: practica2.aux
+The style file: acm.bst
+Database file #1: bibliografia.bib
+Warning--to sort, need author, editor, or key in automatas
+Warning--to sort, need author, editor, or key in compiladores
+Warning--empty author and editor in compiladores
+Warning--empty publisher in compiladores
+Warning--empty author and editor in automatas
+Warning--empty publisher in automatas
+You've used 2 entries,
+            2253 wiz_defined-function locations,
+            532 strings with 4015 characters,
+and the built_in function-call counts, 408 in all, are:
+= -- 30
+> -- 2
+< -- 0
++ -- 2
+- -- 0
+* -- 32
+:= -- 55
+add.period$ -- 4
+call.type$ -- 2
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 8
+duplicate$ -- 28
+empty$ -- 57
+format.name$ -- 0
+if$ -- 91
+int.to.chr$ -- 0
+int.to.str$ -- 2
+missing$ -- 2
+newline$ -- 11
+num.names$ -- 0
+pop$ -- 18
+preamble$ -- 1
+purify$ -- 4
+quote$ -- 0
+skip$ -- 12
+stack$ -- 0
+substring$ -- 10
+swap$ -- 2
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 4
+warning$ -- 6
+while$ -- 0
+width$ -- 3
+write$ -- 18
+(There were 6 warnings)

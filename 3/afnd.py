@@ -9,6 +9,7 @@ class Afn(object):
         self.tablaEstados = []
         self.contadorEstados = 0
         self.inicial = 0
+        self.historialCondiciones = set()
         self.err = 0
 
     def anadirEstado(self):
@@ -29,9 +30,14 @@ class Afn(object):
         if siguiente > self.contadorEstados or estado < 1:
             return -1
 
+        for x in condiciones:
+            self.historialCondiciones.add(x)
+
         if len(condiciones) > 0:
             transicion = Transicion(siguiente, condiciones)
             self.estados[estado-1].anadirTransicion(transicion)
+            for condicion in condiciones:
+                self.historialCondiciones.add(condicion)
         else:
             transicion = Transicion(siguiente)
             self.estados[estado-1].anadirTransicion(transicion)
@@ -178,9 +184,7 @@ class Afn(object):
                         temp += self.evaluarEpsilon(x[1], caracter)
             estds = temp
 
-        print(estds)
         estds = self.validacionFinal(estds)
-        print(estds)
 
         for e in estds:
             if self.estados[e-1].final:

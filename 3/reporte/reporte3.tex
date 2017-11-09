@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+
+%configuraciones del idioma
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{bookman}
+
+%cosas de matematicas
+\usepackage{amsmath, amsfonts, amssymb}
+
+%imagenes
+\usepackage{graphicx}
+\usepackage{subfigure} % subfiguras
+\graphicspath{{imagenes/}}
+\usepackage{float}
+
+%dimensions
+\usepackage[left=3.1cm, right=3.1cm, top=1.5cm]{geometry}
+
+% para contraer referencias
+\usepackage{url}
+\usepackage{cite}
+
+\usepackage[nottoc,numbib]{tocbibind}
+
+
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+%para escribir codigo
+\usepackage{listings}
+
+\lstset{ frame=Ltb,
+framerule=0pt,
+aboveskip=0.5cm,
+framextopmargin=3pt,
+framexbottommargin=3pt,
+framexleftmargin=0.4cm,
+framesep=0pt,
+rulesep=.4pt,
+backgroundcolor=\color{gray97},
+rulesepcolor=\color{black},
+%
+stringstyle=\ttfamily,
+showstringspaces = false,
+basicstyle=\small\ttfamily,
+commentstyle=\color{gray45},
+keywordstyle=\bfseries,
+%
+numbers=left,
+numbersep=15pt,
+numberstyle=\tiny,
+numberfirstline = false,
+breaklines=true,
+}
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+{\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+{basicstyle=\scriptsize\bf\ttfamily,
+backgroundcolor=\color{gray75},
+}
+
+\usepackage{charter} 
+
+\title{}
+\author{Ian Mendoza Jaimes}
+\date{}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+	\vspace*{1.5in}
+	\begin{huge}
+		Práctica 3\\
+	\end{huge}
+	\vspace{4em}
+	\begin{Large}
+		Ian Mendoza Jaimes \\
+		\vspace{4em}
+		Compiladores \\
+		\vspace{1em}
+		Profesor: Rafael Norman Saucedo Delgado \\
+		\vspace{1em}
+		Grupo: 3CM6 \\
+		\vspace{1em}
+	\end{Large}
+\end{titlepage}
+
+\tableofcontents
+\pagenumbering{arabic}
+\pagebreak
+
+\input{intro}
+
+\newpage
+
+\input{desarrollo}
+
+\newpage
+
+\input{resultados}
+
+\newpage
+
+\input{conclusiones}
+
+\vspace{3em}
+
+\bibliographystyle{acm}
+\bibliography{bibliografia}
+
+\end{document}

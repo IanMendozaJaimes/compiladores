@@ -1,0 +1,37 @@
+\section{Introducción}
+
+Los autómatas al igual que las expresiones regulares son capaces de modelar lenguajes regulares. Estos lenguajes son particularmente útiles para describir algún lenguaje de programación. \\
+
+Particularmente, los autómatas y las expresiones regulares son usados en la etapa del analisis léxico de un compilador \cite{automatas}. Primero se escriben expresiones regulares que describiran a las clases léxicas del lenguaje a traducir. Con estas expresiones, obtendremos sus respectivos autómtas. El problema, es que la construcción de Thompson arroja autómatas no deterministas, los cuales son más faciles de modelar, pero no de programar, además son más tardados de evaluar. \\
+
+El tiempo de ejecución es muy importante en cualquier algoritmo, y el analizador léxico no es la excepción. Debido a que en esta etapa se evalua todo el código fuente de algún programa a traducir, puede tomar bastante tiempo. De ahi, surge la necesidad de utilizar autómtas deterministas para la obtención de tokens. \\
+
+El algoritmo de los subconjuntos resuelve este problema \cite{compiladores}. Como entrada recibe un AFN y de salida arroja un AFD. Este método sin duda es uno de los más efectivos para la conversión de un AFN a un AFD, pues nos ahorra la necesidad de crear un AFN intermedio para lidear con las transiciones epsilon. \\
+
+Antes de comenzar con la programación de este algoritmo, conviene describir las siguientes funciones auxiliares:
+
+\begin{itemize}
+	\item $Cerradura \epsilon (e)$, regresa todos los caminos que podemos seguir con una transición epsilon partiendo de algun estado dado $e$.
+	\item $Mover(e,s)$, regresa los caminos que podemos seguir partiendo de un estado $e$ evaluando el caracter $s$.
+\end{itemize}
+
+El algoritmo de los subconjuntos consiste en los siguientes pasos:
+
+\begin{enumerate}
+	\item Agregar Cerradura $\epsilon$ (Inicial de AFN) a $E$
+	\item Por cada estado $e \in E$
+	\item 		Por cada símbolo $s$
+	\item			Agregar Cerradura $\epsilon$ (Mover($e,s$))
+	\item 			Agregar transición $E \xrightarrow[]{s} $ Cerradura $\epsilon$ (Mover($e,s$))
+	\item El inicial del AFD es Cerradura $\epsilon$ (Inicial de AFN)
+	\item Los finales del AFD contienen finales del AFN
+\end{enumerate}
+
+
+
+
+
+
+
+
+

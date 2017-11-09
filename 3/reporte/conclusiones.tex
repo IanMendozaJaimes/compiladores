@@ -1,0 +1,11 @@
+\section{Conclusiones}
+
+Los autómatas al igual que las expresiones regulares, nos ayudan a modelar lenguajes regulares. Ambos tienen una aplicación amplia en el mundo de las ciencias computacionales. En este caso nos hemos enfocado en sus capacidades para modelar la primera etapa de un compilador. \\
+
+El analizador léxico puede tomar gran parte del tiempo de ejecución de todo el compilador, debido a que es la única etapa en la que se tiene que evaluar todo el código fuente. Por esta razón, es conveniente tener un método eficiente para evaluar los caracteres y obtener los tokens. La mejor manera que tenemos, es utilizar un AFD. Sin embargo, al momento de utilizar la construcción de Thompson para convertir expresiones regulares a autómatas, obtenemos un AFN, que no es tan eficiente como un AFD. \\
+
+El algoritmo de los subconjuntos esta pensado en solucionar este problema, pues convierte un AFN en un AFD. En esta práctica tuve la oportunidad de implementar este algoritmo y así, poder comparar los tiempos de ejecución de un AFN y un AFD que modelen el mismo lenguaje.
+
+
+
+
